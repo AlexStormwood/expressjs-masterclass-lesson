@@ -17,6 +17,8 @@ app.get('/', (request, response) => {
     response.json({message:"It is a great Tuesday, my dudes"});
 });
 
+const importedPostRouting = require('./Posts/postsRoutes');
+app.use('/posts', importedPostRouting);
 
 app.listen(PORT, HOST, () => {
     console.log("Server is running!")
