@@ -1,5 +1,5 @@
 const express = require('express');
-const { randomNumberGenerator } = require('./postsFunctions');
+const { randomNumberGenerator, someAsyncFunction } = require('./postsFunctions');
 
 const routes = express.Router();
 
@@ -10,10 +10,10 @@ routes.get('/', (request, response) => {
 
 });
 
-routes.get('/randomNumber',(request,response)=>{
-
+routes.get('/randomNumber',async (request,response)=>{
+    let asyncResult = await someAsyncFunction();
     response.send(`<h1>${randomNumberGenerator()}</h1>`); 
- });
+});
  
 
 routes.get('/:postID', (request, response) => {
