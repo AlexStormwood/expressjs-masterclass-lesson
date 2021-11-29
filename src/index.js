@@ -1,3 +1,8 @@
+// Setup .env variables
+require('dotenv').config()
+
+console.log(`Env variable message was:\n${process.env.NICE_MESSAGE}`);
+
 const express = require('express');
 
 const app = express();
