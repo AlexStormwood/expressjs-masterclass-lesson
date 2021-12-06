@@ -9,6 +9,7 @@ async function getAllPosts(){
 
 // create a post 
 async function createSpecificPost(postDetails){
+    console.log(`Received postdetails of ${JSON.stringify(postDetails)}`);
     let newPost = new Post({
         postTitle: postDetails.postTitle,
         postContent: postDetails.postContent,
