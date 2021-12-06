@@ -1,5 +1,5 @@
 const express = require('express');
-const { randomNumberGenerator, someAsyncFunction, getAllPosts, createSpecificPost } = require('./postsFunctions');
+const { randomNumberGenerator, someAsyncFunction, getAllPosts, createSpecificPost, getAllPostByAuthorID } = require('./postsFunctions');
 
 const routes = express.Router();
 
@@ -27,6 +27,13 @@ routes.post('/', async (request, response) => {
 
     response.json(creationResult);
 });
+
+routes.get('/:authorID', async (request, response) => {
+    let allAuthorPosts = await getAllPostByAuthorID(request.params.authorID);
+
+    response.json(allAuthorPosts);
+
+})
 
 
 routes.get('/randomNumber',async (request,response)=>{
