@@ -1,3 +1,27 @@
+const {Post} = require('../database/schemas/PostSchema');
+
+// get all posts 
+async function getAllPosts(){
+    let allPosts = await Post.find();
+    return JSON.stringify(allPosts);
+}
+
+
+// create a post 
+async function createSpecificPost(postDetails){
+    let newPost = new Post({
+        postTitle: postDetails.postTitle,
+        postContent: postDetails.postContent,
+        postAuthorID: postDetails.postAuthorID,
+        postRating: postDetails.postRating
+    });
+
+    let creationResult = await newPost.save();
+    return creationResult;
+}
+
+
+
 
 
 function randomNumberGenerator(){
@@ -10,5 +34,5 @@ async function someAsyncFunction(){
 }
 
 module.exports = {
-    randomNumberGenerator, someAsyncFunction
+    randomNumberGenerator, someAsyncFunction, getAllPosts, createSpecificPost
 }

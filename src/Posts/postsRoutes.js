@@ -1,14 +1,33 @@
 const express = require('express');
-const { randomNumberGenerator, someAsyncFunction } = require('./postsFunctions');
+const { randomNumberGenerator, someAsyncFunction, getAllPosts, createSpecificPost } = require('./postsFunctions');
 
 const routes = express.Router();
 
+// get all posts 
+routes.get('/', async (request, response) => {
+    let allPosts = await getAllPosts();
+    response.json(allPosts);
 
-routes.get('/', (request, response) => {
-
-    response.json(`Received a request on ${request.originalUrl}`);
+    //response.json(`Received a request on ${request.originalUrl}`);
 
 });
+
+// create a new post 
+routes.post('/', async (request, response) => {
+    //let tempPostDetails = {}
+    //let creationResult = await createSpecificPost(tempPostDetails)
+    let creationResult = await createSpecificPost(
+        {
+            postTitle: request.body.postTitle,
+            postContent: request.body.postContent,
+            postAuthorID: request.body.postAuthorID,
+            postRating: request.body.postRating
+        }
+    );
+
+    response.json(creationResult);
+});
+
 
 routes.get('/randomNumber',async (request,response)=>{
     let asyncResult = await someAsyncFunction();
@@ -22,23 +41,23 @@ routes.get('/:postID', (request, response) => {
 
 });
 
-routes.post('/:postID', (request, response) => {
+// routes.post('/:postID', (request, response) => {
 
-    let submittedData = request.body;
+//     let submittedData = request.body;
 
-    console.log(JSON.stringify(submittedData));
+//     console.log(JSON.stringify(submittedData));
 
-    let submittedName = request.body.name.toUpperCase();
-    submittedName += submittedName;
+//     let submittedName = request.body.name.toUpperCase();
+//     submittedName += submittedName;
 
-    // for form urlencoded submission
-    //let submittedPokemon = JSON.parse(request.body.favouritePokemon).name;
+//     // for form urlencoded submission
+//     //let submittedPokemon = JSON.parse(request.body.favouritePokemon).name;
 
-    // for raw json submission
-    let submittedPokemon = request.body.favouritePokemon.name;
+//     // for raw json submission
+//     let submittedPokemon = request.body.favouritePokemon.name;
 
-    response.json(`Received fave Pokemon of ${submittedPokemon} `)
-});
+//     response.json(`Received fave Pokemon of ${submittedPokemon} `)
+// });
 
 
 // routes.get('/:username/status/:postID', (request, response) => {
